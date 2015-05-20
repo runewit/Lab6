@@ -16,7 +16,7 @@ typedef struct tree{
 }ttree;
 
 ttree* create(){
-	ttree*q=calloc(1, sizeof(ttree));
+	ttree *q = calloc(1, sizeof(ttree));
 	q->counter=NULL;
 	q->count=0;
 	//q->bottom=NULL;
@@ -30,7 +30,7 @@ void push(ttree *tree, int value){
 	slot->number = value;
 	
 	if(tree->couner==NULL && tree->top == NULL){// && tree->bottom == NULL){
-		tree->bottom = slot;
+		//tree->bottom = slot;
 		tree->top = slot;
 		tree->counter = slot;
 	}else if(tree->counter != NULL && tree->counter->after1 == NULL){
@@ -54,33 +54,30 @@ void push(ttree *tree, int value){
 	tree->count++;
 }
 
-int pop(ttree *tree){
-	int pid;
-	
-	if(tree->bottom == NULL && tree->top == NULL){
-		printf("tree is empty\n");
-		return -1;
-	}else if(tree->bottom == tree->top){
-		pid=tree->bottom->number;
-		free(tree->bottom);
-		tree->bottom = NULL;
-		tree->top = NULL;
-		printf("popped top item out\n");
-	}else{
-		pid=tree->bottom->number;
-		printf("set pid\n");
-		tree->bottom = tree->bottom->after;
-		printf("set new bottom\n");
-		free(tree->bottom->before);
-		printf("freed old bottom\n");
-		tree->bottom->before = NULL;
-		printf("set new bottom's before reference to null\n");
+void preorder(ttree *tree){
+	until(tree->counter->after1->after1 == NULL){
+		puts(tree->counter->number);
 	}
-	return pid;
+	puts(tree->counter->after1->number);
+	puts(tree->counter->after2->number);
+	until(tree->counter == tree->top){
+		tree->counter = tree->counter->before->after2;
+		puts(tree->counter->number);
+		until(tree->counter->after1->after1 == NULL){
+			tree->counter = tree->counter->after1;
+			puts(tree->counter->number)
+		}
+		puts(tree->counter->after1->number);
+		puts(tree->counter->after2->number);
+		tree->counter = tree->counter->before;
+	}
 }
 
+void postorder(ttree *tree){}
+
+void inorder(ttree *tree){}
 
 void delete(ttree* q){
-	while(pop(q) != -1);
+	
 	free(q);
 }
