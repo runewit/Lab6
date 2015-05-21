@@ -4,6 +4,7 @@ requires c language
 
 Will put entered integers into a binary search tree then print them back out for you in pre-order
 	(post-order and in-order missing)
+Will not stop with just any negative number, must be a -1
 At the moment I have hit an error that I don't know what to do with:
 
 "
