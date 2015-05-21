@@ -12,6 +12,7 @@ typedef struct tree{
 	tb *top;
 }ttree;
 
+ttree* create();
 void push(ttree *tree, int value);
 void preorder(ttree *tree);
 void postorder(ttree *tree);
