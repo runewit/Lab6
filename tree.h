@@ -6,7 +6,7 @@ typedef struct branch{
 }tb;
 
 typedef struct tree{
-	tb *counter
+	tb *counter;
 	int count;
 	tb *bottom;
 	tb *top;

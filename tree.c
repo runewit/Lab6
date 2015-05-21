@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "tree.h"
+
 ttree* create(){
 	ttree *q = calloc(1, sizeof(ttree));
 	q->counter=NULL;
@@ -15,7 +17,7 @@ void push(ttree *tree, int value){
 	
 	slot->number = value;
 	
-	if(tree->couner==NULL && tree->top == NULL){// && tree->bottom == NULL){
+	if(tree->counter==NULL && tree->top == NULL){// && tree->bottom == NULL){
 		//tree->bottom = slot;
 		tree->top = slot;
 		tree->counter = slot;
@@ -25,7 +27,7 @@ void push(ttree *tree, int value){
 		//tree->bottom = slot;
 	}else if(tree->counter != NULL && tree->counter->after1 != NULL){
 		slot->before = tree->counter;
-		tree->countert->before->after2 = slot;
+		tree->counter->before->after2 = slot;
 		//tree->bottom = slot;
 	}else{
 		if(tree->counter->before != NULL){
@@ -41,16 +43,16 @@ void push(ttree *tree, int value){
 }
 
 void preorder(ttree *tree){
-	until(tree->counter->after1->after1 == NULL){
+	if(tree->counter->after1->after1 != NULL){
 		tree->counter = tree->counter->after1;
 		puts(tree->counter->number);
 	}
 	puts(tree->counter->after1->number);
 	puts(tree->counter->after2->number);
-	until(tree->counter == tree->top){
+	if(tree->counter != tree->top){
 		tree->counter = tree->counter->before->after2;
 		puts(tree->counter->number);
-		until(tree->counter->after1->after1 == NULL){
+			if(tree->counter->after1->after1 != NULL){
 			tree->counter = tree->counter->after1;
 			puts(tree->counter->number);
 		}
@@ -64,16 +66,15 @@ void postorder(ttree *tree){}
 
 void inorder(ttree *tree){}
 
-void delete(ttree* q){
-	until(tree->counter->after1->after1 == NULL){
+void delete(ttree* tree){	
+	if(tree->counter->after1->after1 != NULL){
 		tree->counter = tree->counter->after1;
-		free(tree->counter);
 	}
 	free(tree->counter->after1);
 	free(tree->counter->after2);
-	until(tree->counter == tree->top){
+	if(tree->counter != tree->top){
 		tree->counter = tree->counter->before->after2;
-		until(tree->counter->after1->after1 == NULL){
+		if(tree->counter->after1->after1 != NULL){
 			tree->counter = tree->counter->after1;
 		}
 		free(tree->counter->after1);
