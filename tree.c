@@ -1,20 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct branch{
-	struct branch *before;
-	int number;
-	struct branch *after1;
-	struct branch *after2;
-}tb;
-
-typedef struct tree{
-	tb *counter
-	int count;
-	tb *bottom;
-	tb *top;
-}ttree;
-
 ttree* create(){
 	ttree *q = calloc(1, sizeof(ttree));
 	q->counter=NULL;
@@ -56,6 +42,7 @@ void push(ttree *tree, int value){
 
 void preorder(ttree *tree){
 	until(tree->counter->after1->after1 == NULL){
+		tree->counter = tree->counter->after1;
 		puts(tree->counter->number);
 	}
 	puts(tree->counter->after1->number);
@@ -65,7 +52,7 @@ void preorder(ttree *tree){
 		puts(tree->counter->number);
 		until(tree->counter->after1->after1 == NULL){
 			tree->counter = tree->counter->after1;
-			puts(tree->counter->number)
+			puts(tree->counter->number);
 		}
 		puts(tree->counter->after1->number);
 		puts(tree->counter->after2->number);
@@ -78,6 +65,20 @@ void postorder(ttree *tree){}
 void inorder(ttree *tree){}
 
 void delete(ttree* q){
-	
-	free(q);
+	until(tree->counter->after1->after1 == NULL){
+		tree->counter = tree->counter->after1;
+		free(tree->counter);
+	}
+	free(tree->counter->after1);
+	free(tree->counter->after2);
+	until(tree->counter == tree->top){
+		tree->counter = tree->counter->before->after2;
+		until(tree->counter->after1->after1 == NULL){
+			tree->counter = tree->counter->after1;
+		}
+		free(tree->counter->after1);
+		free(tree->counter->after2);
+		tree->counter = tree->counter->before;
+	}
+
 }
